@@ -8,10 +8,23 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-                            
+
+class ViewController: UIViewController, NSURLConnectionDelegate{
+    @IBOutlet weak var city: UITextField!
+    @IBOutlet weak var state: UITextField!
+    @IBOutlet weak var search: UIButton!
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject) {
+        let states = state.text.lowercaseString
+        let cities = city.text.lowercaseString.stringByReplacingOccurrencesOfString(" ", withString: "_", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
+        var weatherView = segue.destinationViewController as WeatherView
+        weatherView.state = states
+        weatherView.city = cities
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
